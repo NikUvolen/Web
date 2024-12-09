@@ -1,41 +1,35 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Z</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style/css/reset.css">
-    <link rel="stylesheet" href="style/css/style.css">
-</head>
-<body>
-    <div class="container">
-        <div class="game_stats">
-            test stats: 10
+<!DOCTYPE html> 
+<html> 
+<head> 
+   <meta charset="utf-8"> 
+   <meta name="viewport" content="initial-scale=1, width=device-width"> 
+    
+   <link rel="stylesheet"  href="style/css/reset.css"/>
+   <link rel="stylesheet" href="style/css/style.css"> 
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Handjet:wght@500;600&display=swap" /> 
+</head> 
+<body> 
+    <div class="characters">
+        <div class="characters__img first" id="mainCharacter">
+            <img class="" src="style/img/charactes/gg (1).png" alt="">
         </div>
-        <div class="game_field">
-            <div class="game_field__central">
-                <div class="game_field__central__choise">
-                    <button class="game_field__central__choise__button">Да</button>
-                    <button class="game_field__central__choise__button">Нет</button>
-                </div>
-                <div class="game_field__central__img"></div>
-                <div class="game_field__central__dialogs_block">
-                    <div class="game_field__central__dialogs">
-                        <div class="character__name">
-                            БубаДрон
-                        </div>
-                        <div class="character__phrase">
-                            Слава богу! aka святые угодники.
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
+        <div class="characters__img second" id="secondCharacter">
+            <!-- <img class="" src="style/img/charactes/gg/gg (2).png" alt=""> -->
         </div>
     </div>
-</body>
+
+   <div class="ui"> 
+      <div class="ui__choise" id="ui__choise"></div> 
+
+      <div class="ui__text-field"> 
+         <div class="ui__text-field__name" id="ui__text-field__name">Путин</div> 
+         <div class="ui__text-field__container"> 
+            <div class="ui__text-field__text" id="ui__text-field__text"></div> 
+         </div> 
+      </div> 
+   </div>
+
+   <script src="style/script.js"></script>
+</body> 
 </html>

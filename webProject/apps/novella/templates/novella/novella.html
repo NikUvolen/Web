@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href={% static 'novella/style/reset.css' %}>
+<link rel="stylesheet" href={% static 'novella/style/style.css' %}>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Handjet:wght@500;600&display=swap" /> 
+{% endblock style %}
+
+{% block header %}{% endblock header %}
+
+{% block content %}
+<div class="game_field" id="game_field"></div>
+
+   <div class="characters">
+      <div class="characters__img first" id="mainCharacter">
+         <img class="" src={% static 'novella/images/characters/gg(1).png' %} alt="">
+      </div>
+      
+      <div class="characters__img second" id="secondCharacter">
+         <img class="" src="" alt="">
+      </div>
+   </div>
+
+   <div class="ui">
+      <div class="ui__newGame" id="newGame">Новая игра</div>
+      <a href="{% url 'main_menu' %}" class="ui__exit__link">
+        <div class="ui__exit" id="exit">Выход</div>
+      </a>
+      <div class="ui__choise" id="ui__choise"></div> 
+
+      <div class="ui__text-field" id="text_field"> 
+         <div class="ui__text-field__name" id="ui__text-field__name"></div> 
+         <div class="ui__text-field__container"> 
+            <div class="ui__text-field__text" id="ui__text-field__text"></div> 
+         </div> 
+      </div> 
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src={% static 'novella/js/script.js' %}></script>
+{% endblock scripts %}

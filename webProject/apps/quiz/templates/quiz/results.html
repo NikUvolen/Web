@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+{{ block.super }}
+<style>
+    .userResults {
+        width: 30%;
+        margin-right: 15px;
+    }
+    .questionsResult {
+        width: 70%;
+        margin-left: 15px;
+    }
+    .results {
+        display: none;
+    }
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="container">
+    <p class="results" id="user_results">{{ results }}</p>
+    <p class="results" id="number_of_passes_list">{{ number_of_passes_list }}</p>
+    <p class="results" id="number_of_correct_answers_list">{{ number_of_correct_answers_list }}</p>
+
+    <h1 class="text-center mt-5">Quiz results</h1>
+    <div class="d-flex justify-content-center">
+        <div class="userResults mt-5 mb-5">
+            <canvas id="myDoughnutChart" width="50" height="50"></canvas>
+        </div>
+        <div class="questionsResult mt-5 mb-5">
+            <canvas id="myLineChart" style="width: 100%; height: 400px;"></canvas>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    const results = JSON.parse(document.getElementById('user_results').innerHTML);
+    const mdc = document.getElementById('myDoughnutChart').getContext('2d');
+    const myDoughnutChart = new Chart(mdc, {
+        type: 'doughnut',
+        data: {
+            labels: ['5/5', '4/5', '3/5', '2/5', '1/5', '0/5'],
+            datasets: [{
+                label: 'Result',
+                data: results,
+                backgroundColor: [
+                    'rgba(43,84,172, 0.9)',
+                    'rgba(149,170,233, 0.9)',
+                    'rgba(245,244,252, 0.9)',
+                    'rgba(214,226,188, 0.9)',
+                    'rgba(235, 149, 142, 0.9)',
+                    'rgba(223,79,68, 0.9)'
+                ],
+                borderColor: [
+                    'rgba(255, 255, 255, 1)',
+                    'rgba(255, 255, 255, 1)',
+                    'rgba(255, 255, 255, 1)',
+                    'rgba(255, 255, 255, 1)',
+                    'rgba(255, 255, 255, 1)',
+                    'rgba(255, 255, 255, 1)',
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Number of successful quiz completions'
+                }
+            }
+        }
+    });
+
+    const ctx = document.getElementById('myLineChart').getContext('2d');
+    let number_of_passes_list = JSON.parse(document.getElementById('number_of_passes_list').innerHTML);
+    let number_of_correct_answers_list = JSON.parse(document.getElementById('number_of_correct_answers_list').innerHTML);
+    const myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Array.from({length: number_of_passes_list.length}, (_, i) => i + 1), // 15 позиций по горизонтали
+            datasets: [
+                {
+                    label: 'Number of passages of questions',
+                    data: number_of_passes_list,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    fill: false,
+                    tension: 0.1
+                },
+                {
+                    label: 'Number of successful completion of questions',
+                    data: number_of_correct_answers_list,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    fill: false,
+                    tension: 0.1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 25,
+                    ticks: {
+                        stepSize: 1 // Шаг для вертикальной оси
+                    }
+                },
+                x: {
+                    ticks: {
+                        stepSize: 1 // Шаг для горизонтальной оси
+                    }
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Пример линейного графика'
+                }
+            }
+        }
+    });
+    </script>    
+{% endblock scripts %}

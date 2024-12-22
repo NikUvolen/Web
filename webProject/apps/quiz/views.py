@@ -73,6 +73,7 @@ class ResultsView(AuthorizationRequiredMixin, views.View):
             'results': [0, 0, 0, 0, 0, 0],
             'number_of_passes_list': number_of_passes_list,
             'number_of_correct_answers_list': number_of_correct_answers_list,
+            'user_score': user_score.number_of_correct_answers,
         }
         for user in users_score:
             context['results'][user.number_of_correct_answers] += 1

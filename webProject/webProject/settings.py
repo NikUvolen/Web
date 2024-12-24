@@ -9,7 +9,6 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-sys.path.insert(0, join(BASE_DIR, 'apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -51,7 +50,7 @@ INSTALLED_APPS = [
     'novella.apps.NovellaConfig',
     'authenticate.apps.AuthenticateConfig',
     'quiz.apps.QuizConfig',
-    'chat.apps.ChatConfig'
+    'chat.apps.ChatConfig',
 ]
 
 MIDDLEWARE = [
@@ -89,6 +88,12 @@ TEMPLATES = [
 # WSGI_APPLICATION = 'webProject.wsgi.application'
 
 ASGI_APPLICATION = 'webProject.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -154,10 +159,10 @@ STATIC_URL = 'static/'
 STATIC_ROOT = join(BASE_DIR, 'static') 
 STATICFILES_DIRS = [
     join(BASE_DIR, 'webProject/static'),
-    join(BASE_DIR, 'apps/mainMenu/static'),
-    join(BASE_DIR, 'apps/novella/static'),
-    join(BASE_DIR, 'apps/authenticate/static'),
-    join(BASE_DIR, 'apps/chat/static')
+    join(BASE_DIR, 'mainMenu/static'),
+    join(BASE_DIR, 'novella/static'),
+    join(BASE_DIR, 'authenticate/static'),
+    join(BASE_DIR, 'chat/static')
 ]
 
 MEDIA_URL = '/media/'

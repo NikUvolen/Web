@@ -1,51 +1,18 @@
 {% load static %}
-{% comment %} <header>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container container-fluid">
-          <a class="navbar-brand" href="{% url 'main_menu' %}">
-            <img src="https://www.reshot.com/preview-assets/icons/NDRTS3BYJG/web-development-NDRTS3BYJG.svg" alt="" width="24" height="24" class="d-inline-block align-text-top"> 
-            Web labs | Zinkov Mikhail
-          </a>
-
-          
-          <div class="">
-            <ul class="d-flex list-unstyled">
-                {% if not request.user.is_authenticated %}
-                <li>
-                    <a href="{% url 'login' %}" class="mx-3">
-                        <iconify-icon icon="healthicons:person" class="fs-4"></iconify-icon>
-                        login
-                    </a>
-                </li>
-                {% else %}
-                <li>
-                    <p class="align-middle">{{ request.user.username }}</p>
-                </li>
-                <li>
-                    <form action="{% url 'logout' %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-secondary">Выйти</button>
-                    </form>
-                </li>
-            </ul>
-          </div>
-          {% endif %}
-        </div>
-    </nav>
-</header> {% endcomment %}
-
 <div class="container">
 
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
             <img src="https://www.reshot.com/preview-assets/icons/NDRTS3BYJG/web-development-NDRTS3BYJG.svg" alt="" width="24" height="24" class="d-inline-block align-text-top"> 
-          Web labs | Zinkov Mikhail
+          <span class="ms-2 mb-0">Web labs | Zinkov Mikhail</span>
         </a>
         
         <div class="text-end">
             {% if request.user.is_authenticated %}
             <div class="d-flex align-items-center">
-                <h5 class="mb-0 me-4">{{ request.user.username }}</h5>
+                <a href="">
+                    <h5 class="mb-0 me-4">{{ request.user.username }}</h5>
+                </a>
                 <form action="{% url 'logout' %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-outline-dark">Log out</button>

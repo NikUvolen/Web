@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <form method="post">
+            {% csrf_token %}
+
+            {% for question in questions %}
+                <div class="mb-4">
+                    <p class="form-label">{{ question.idx }}. {{ question.question }}</p>
+                    {% for answer in question.answers %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="q{{ question.idx }}_option{{ forloop.counter0 }}" name="question{{ question.idx }}" value="{{ question.current_idx }}-{{ answer.answer }}" required>
+                            <label class="form-check-label" for="q{{ question.idx }}_option{{ forloop.counter0 }}">{{ answer.answer }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+            {% endfor %}
+
+            <button id="sendResult" class="btn btn-primary">Send results</button>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    document.getElementById('sendResult').addEventListener('click', function(e) {
+        // do NOT send the form the usual way
+        e.preventDefault();  
+        
+        const questions = document.querySelectorAll('input:checked');
+        let results = {};
+        for (let i = 0; i < questions.length; i++) {
+            res = questions[i].value.split('-');
+            results[res[0]] = res[1];
+        }
+        // Run the function that will send the code to the ToolsPageView
+        sendResult(results);
+    })
+
+    function getCSRFToken() {
+        const name = 'csrftoken';
+        const cookieValue = document.cookie.split('; ')
+            .find(row => row.startsWith(name))
+            .split('=')[1];
+        return cookieValue;
+    }
+
+    async function sendResult(result) {
+        const response = await fetch('', {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCSRFToken(),
+                },
+                body: JSON.stringify({
+                    'Results': result,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.redirect_url) {  // Проверяем наличие URL для перенаправления
+                    window.location.href = data.redirect_url;  // Перенаправляем на новый URL
+                } else {
+                    console.log(data);  // Или обрабатываем другие данные
+                }
+            })
+            .catch((error) => {
+                console.error('Ошибка:', error);
+            });
+    }
+</script>
+{% endblock scripts %}

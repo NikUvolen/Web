@@ -10,7 +10,7 @@
         <div class="text-end">
             {% if request.user.is_authenticated %}
             <div class="d-flex align-items-center">
-                <a href="">
+                <a href="{% url "user_profile" request.user.pk %}">
                     <h5 class="mb-0 me-4">{{ request.user.username }}</h5>
                 </a>
                 <form action="{% url 'logout' %}" method="post">

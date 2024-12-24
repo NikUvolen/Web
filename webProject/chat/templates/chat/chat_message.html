@@ -22,7 +22,7 @@
 </div> -->
 {% else %}
 <li class="d-flex mb-4">
-    <img src="{% get_avatar_or_default user_avatar=message.author.profiles.avatar %}" alt="avatar" class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
+    <img src="{% get_avatar_or_default user_avatar=gg %}" alt="avatar" class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
     <div class="card w-100">
       <div class="card-header d-flex justify-content-between p-3">
         <p class="fw-bold mb-0">@{{ message.author.username }}</p>

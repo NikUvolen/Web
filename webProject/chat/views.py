@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from webProject.mixins import AuthorizationRequiredMixin
 from .models import ChatGroup
 from .forms import ChatMessageCreateForm
+from authenticate.models import Profiles
 
 
 @login_required
@@ -14,7 +15,6 @@ def chat_view(request):
     form = ChatMessageCreateForm()
 
     if request.htmx:
-        print('kek')
         form = ChatMessageCreateForm(request.POST)
         if form.is_valid:
             message = form.save(commit=False)
@@ -29,7 +29,8 @@ def chat_view(request):
 
     context = {
         'chat_messages': chat_messages,
-        'form': form
+        'form': form,
+        'profile': Profiles.objects.get(user=request.user)
     }
 
     return render(request, 'chat/view_chat.html', context=context)

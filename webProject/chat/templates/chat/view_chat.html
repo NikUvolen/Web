@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load include_tags %}
 
 {% block style %}
 {{ block.super }}
@@ -68,8 +69,7 @@
               </ul>
             </div>
             <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
-                alt="avatar 3" style="width: 40px; height: 100%;">
+              <img src="{% get_avatar_or_default user_avatar=ff %}" alt="avatar 3" style="width: 40px; height: 100%;" class="me-2">
               <form id="chat_messages_form" class="form-control" hx-ext="ws" ws-connect="/ws/chatroom/public-chat" ws-send _="on htmx:wsAfterSend reset() me">
 								{% csrf_token %}
 								

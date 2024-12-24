@@ -37,8 +37,6 @@ class ChatroomConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         body = text_data_json['body']
 
-        self.send(text_data="Hello world")
-
         message = GroupMessage.objects.create(
             body = body,
             author = self.user,

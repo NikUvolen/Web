@@ -1,11 +1,14 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, get_user_model
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django import views
 
 from .forms import LoginForm, RegistrationForm
 from .mixins import AnonymityRequiredMixin
 
+from .models import Profiles
+
+User = get_user_model()
 
 class LoginView(AnonymityRequiredMixin, views.View):
 
@@ -47,6 +50,7 @@ class RegistrationView(AnonymityRequiredMixin, views.View):
             new_user.set_password(form.cleaned_data['password'])
             new_user.save()
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            Profiles.objects.create(user=user, display_name='user')
             login(request, user)
             return HttpResponseRedirect('/')
 
@@ -54,3 +58,16 @@ class RegistrationView(AnonymityRequiredMixin, views.View):
             'form': form
         }
         return render(request, 'authenticate/register.html', context=context)
+    
+
+class UserProfileView(views.View):
+    def get(self, request, pk, *args, **kwargs):
+        user = get_object_or_404(User, pk=pk)
+        user_profile = get_object_or_404(Profiles, user=user)
+
+        context = {
+            'user': user,
+            'profile': user_profile
+        }
+
+        return render(request, 'authenticate/user_profile.html', context=context)

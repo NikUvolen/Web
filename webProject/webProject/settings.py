@@ -28,6 +28,10 @@ ALLOWED_HOSTS.extend(
     )
 )
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,11 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     "crispy_bootstrap5",
+    'debug_toolbar',
+    "django_htmx",
 
     'mainMenu.apps.MainMenuConfig',
     'novella.apps.NovellaConfig',
     'authenticate.apps.AuthenticateConfig',
-    'quiz.apps.QuizConfig'
+    'quiz.apps.QuizConfig',
+    'chat.apps.ChatConfig'
 ]
 
 MIDDLEWARE = [
@@ -54,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = 'webProject.urls'
@@ -145,7 +154,8 @@ STATICFILES_DIRS = [
     join(BASE_DIR, 'webProject/static'),
     join(BASE_DIR, 'apps/mainMenu/static'),
     join(BASE_DIR, 'apps/novella/static'),
-    join(BASE_DIR, 'apps/authenticate/static')
+    join(BASE_DIR, 'apps/authenticate/static'),
+    join(BASE_DIR, 'apps/chat/static')
 ]
 
 MEDIA_URL = '/media/'

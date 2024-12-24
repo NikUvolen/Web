@@ -1,0 +1,19 @@
+{% load include_tags %}
+
+{% if message.author == user %}
+<div class="d-flex flex-row justify-content-end">
+    <div>
+        <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">{{ message.body }}</p>
+        <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">{{ message.created_at }}</p>
+    </div>
+    <img src="{% get_avatar_or_default user_avatar=message.author.profiles.avatar %}" alt="avatar 1" style="width: 45px; height: 100%;">
+</div>
+{% else %}
+<div class="d-flex flex-row justify-content-start mb-4">
+    <img src="{% get_avatar_or_default user_avatar=message.author.profiles.avatar %}" alt="avatar 1" style="width: 45px; height: 100%;">
+    <div>
+        <p class="small p-2 ms-3 mb-1 rounded-3 bg-body-tertiary">{{ message.body }}</p>
+        <p class="small ms-3 mb-3 rounded-3 text-muted">{{ message.created_at }}</p>
+    </div>
+</div>
+{% endif %}

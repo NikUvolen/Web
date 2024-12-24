@@ -4,7 +4,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
 from django.urls import re_path
-
 from .settings import DEBUG, STATIC_URL, STATIC_ROOT, MEDIA_URL, MEDIA_ROOT
 
 urlpatterns = [
@@ -12,10 +11,15 @@ urlpatterns = [
     path('', include('mainMenu.urls')),
     path('novella/', include('novella.urls')),
     path('quiz/', include('quiz.urls')),
-    path('auth/', include('authenticate.urls'))
+    path('auth/', include('authenticate.urls')),
+    path('chat/', include('chat.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if not DEBUG:
+if DEBUG:
+    urlpatterns += [
+        path('__debug__/', include('debug_toolbar.urls'))
+    ]
+else:
     urlpatterns += [
         re_path(f'{MEDIA_URL.lstrip("/")}(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
         re_path(f'{STATIC_URL.lstrip("/")}(?P<path>.*)$', serve, {'document_root': STATIC_ROOT}),

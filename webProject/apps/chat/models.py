@@ -8,7 +8,6 @@ class ChatGroup(models.Model):
     def __str__(self):
         return self.group_name
     
-
 class GroupMessage(models.Model):
     group = models.ForeignKey(ChatGroup, related_name='chat_messages', on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

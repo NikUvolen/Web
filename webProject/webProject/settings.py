@@ -35,6 +35,7 @@ INTERNAL_IPS = [
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -85,8 +86,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'webProject.wsgi.application'
+# WSGI_APPLICATION = 'webProject.wsgi.application'
 
+ASGI_APPLICATION = 'webProject.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

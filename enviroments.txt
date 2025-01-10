@@ -1,0 +1,2 @@
+SECRET_KEY=8xu7mthbop=+wgt^yr3!_0hr%%(&piu9)m$i%#g@l^z*-za11i
+DEBUG=1
